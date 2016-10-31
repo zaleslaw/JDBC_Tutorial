@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Random;
 
 /**
- * The time to change sex has gone
+ * It's time to change sex has gone
  */
 public class Ex_11_ChangeSex {
 

@@ -3,7 +3,10 @@ package jdbc.statements;
 import java.sql.*;
 
 /**
- * Add stored procedure 'getAllGoods' to your MySQL database (Wrap SQL query 'SELECT * FROM products')
+ * [NOTE] Before execution: Add stored procedure 'getAllGoods' to your MySQL database (Wrap SQL query 'SELECT * FROM products')
+ *
+ * This class calls stored procedure to print out all products from database
+ *
  */
 public class Ex_7_StoredProcedure {
 

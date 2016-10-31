@@ -4,6 +4,9 @@ import java.sql.*;
 
 /**
  * It's time to go to Java 7. Remove ugly catch section and go ahead!
+ *
+ * Task 1: connection should be achievable in finally
+ * Solution: Global reference:)
  */
 public class Ex_5_SelectCustomers_Java_7 {
 

@@ -14,7 +14,7 @@ public class Ex_4_SelectCustomers {
     public static final String PASSWORD = "pass";
 
 
-    public static void main(String[] args) throws SQLException // Drop throws section
+    public static void main(String[] args) throws SQLException //Task1: Drop throws section
     {
 
         Connection connection = null;
