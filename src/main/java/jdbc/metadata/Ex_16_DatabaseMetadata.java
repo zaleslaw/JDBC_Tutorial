@@ -8,7 +8,7 @@ import java.sql.*;
 public class Ex_16_DatabaseMetadata {
 
     public static final String URL = "jdbc:mysql://localhost:3306/";
-    public static final String DB_NAME = "shop";
+    public static final String DB_NAME = "grub";
     public static final String USER_NAME = "root";
     public static final String PASSWORD = "pass";
 
