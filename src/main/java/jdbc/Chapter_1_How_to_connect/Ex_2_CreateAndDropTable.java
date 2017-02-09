@@ -1,4 +1,4 @@
-package jdbc.basics;
+package jdbc.Chapter_1_How_to_connect;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,13 +7,9 @@ import java.sql.Statement;
 
 
 /**
- * Run program and catch MySQLNonTransientConnectionException with "Ex_3_TooManyConnections"
- * (Tune your database and set small size of Connection pool)
- * After that run with -Xmx10m and you will not catch Exception
- * What's happened with small size of heap?
- * How to fix?
+ * DDL operators are important too!
  */
-public class Ex_3_TooManyConnections {
+public class Ex_2_CreateAndDropTable {
 
     public static final String URL = "jdbc:mysql://localhost:3306/";
     public static final String DB_NAME = "shop";
@@ -22,12 +18,7 @@ public class Ex_3_TooManyConnections {
 
 
     public static void main(String[] args) throws SQLException {
-        for (int i = 0; i < 1_000; i++) {
-            createAndDropTable();
-        }
-    }
 
-    private static void createAndDropTable() throws SQLException {
         Connection connection = getConnection(DB_NAME);
         Statement st = connection.createStatement();
 
@@ -37,9 +28,8 @@ public class Ex_3_TooManyConnections {
         st.execute("DROP TABLE users");
         System.out.println("Table 'users' was dropped");
 
-        /* Solution*/
-        //connection.close();
-    } // GC for local variables
+
+    }
 
     private static Connection getConnection(String databaseName) throws SQLException {
         return DriverManager.getConnection(URL + databaseName, USER_NAME, PASSWORD);
