@@ -1,13 +1,13 @@
-package jdbc.transactions;
+package jdbc.Chapter_4_How_to_handle_transactions;
 
 import java.sql.*;
-import java.util.Random;
+import java.util.Arrays;
 
 /**
- * Sometimes we need change our sex together ...
- * In one transaction only
+ * Batch technique is very useful then you need deliver all statements together through the network
+ * Don't forget to enable batch support for your Database
  */
-public class Ex_13_ChangeSexInOneTransaction {
+public class Ex_12_ChangeSexInOneBatch {
 
     public static final String URL = "jdbc:mysql://localhost:3306/";
     public static final String DB_NAME = "shop";
@@ -31,18 +31,22 @@ public class Ex_13_ChangeSexInOneTransaction {
             }
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
-            connection.setAutoCommit(false); //<---------- START TRANSACTION
             updateSt.setString(1, "female");
             updateSt.setInt(2, 1);
-            updateSt.executeUpdate();
+            updateSt.addBatch();
 
-            if (new Random().nextBoolean()) { /* Sometimes shit happens */
-                throw new SQLException();
-            }
 
             updateSt.setString(1, "male");
             updateSt.setInt(2, 3);
-            updateSt.executeUpdate();
+            updateSt.addBatch();
+
+
+            updateSt.setString(1, "female");
+            updateSt.setInt(2, 2);
+            updateSt.addBatch();
+
+            final int[] ints = updateSt.executeBatch();
+            System.out.println("Batch results: " + Arrays.toString(ints));
 
             System.out.println("Sex was exchanged");
 
@@ -54,15 +58,9 @@ public class Ex_13_ChangeSexInOneTransaction {
                 System.out.println(rs.getRow() + ". " + rs.getString("firstname")
                         + "\t" + rs.getString("lastname"));
             }
-            connection.commit(); //<------------ END TRANSACTION
 
         } catch (SQLException e) {
             e.printStackTrace();
-            /* Trying to rollback transaction */
-            //connection.rollback()
-
-            /* According to the language spec,
-             the connection will be closed before the catch clause is executed */
         }
     }
 

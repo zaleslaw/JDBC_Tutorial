@@ -31,11 +31,9 @@ public class Ex_3_Create_And_Drop_Table {
             st.execute("DROP TABLE users");
             log.info("Table 'users' was dropped");
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     private static Connection getConnection() throws SQLException {

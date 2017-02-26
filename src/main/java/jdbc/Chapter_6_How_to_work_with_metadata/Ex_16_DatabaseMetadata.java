@@ -1,4 +1,4 @@
-package jdbc.metadata;
+package jdbc.Chapter_6_How_to_work_with_metadata;
 
 import java.sql.*;
 

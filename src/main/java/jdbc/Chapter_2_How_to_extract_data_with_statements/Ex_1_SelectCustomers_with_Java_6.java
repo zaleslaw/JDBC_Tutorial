@@ -1,33 +1,39 @@
-package jdbc.statements;
+package jdbc.Chapter_2_How_to_extract_data_with_statements;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 /**
- * If you are really like checked exceptions
- * Try to drop throws SQLException in main() method
+ * Full handling of SQL checked exception in Java 6
+ * <ul>
+ *     <li>Firstly, delete 'throws SQLException' in main() method signature</li>
+ *     <li>Secondly, add null check and call of .close() method for ResultSet, Statement, Connection</li>
+ * </ul>
  */
-public class Ex_4_SelectCustomers {
+public class Ex_1_SelectCustomers_with_Java_6 {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/";
-    public static final String DB_NAME = "shop";
+    public static final String URL = "jdbc:mysql://localhost:3306/guber";
     public static final String USER_NAME = "root";
     public static final String PASSWORD = "pass";
 
 
     public static void main(String[] args) throws SQLException //Task1: Drop throws section
     {
+        Logger log = LogManager.getRootLogger();
 
         Connection connection = null;
         Statement st = null;
         ResultSet rs = null;
 
         /*try {*/
-        connection = getConnection(DB_NAME);
+        connection = getConnection();
         st = connection.createStatement();
 
-        rs = st.executeQuery("SELECT * FROM customers WHERE sex = 'male'");
+        rs = st.executeQuery("SELECT * FROM driver WHERE lastname LIKE 'De%'");
         while (rs.next()) {
-            System.out.println(rs.getRow() + " " + rs.getString(2) + " " + rs.getDate("birthdate").toLocalDate().getYear());
+            log.info(rs.getRow() + " " + rs.getString(2) + " " + rs.getString("lastname") + " " + rs.getDate("birthdate").toLocalDate().getYear());
         }
         //Solution: Don't forget required handling of null/SQLExceptions
         /*} catch (SQLException e) {
@@ -59,7 +65,7 @@ public class Ex_4_SelectCustomers {
 
     }
 
-    private static Connection getConnection(String databaseName) throws SQLException {
-        return DriverManager.getConnection(URL + databaseName, USER_NAME, PASSWORD);
+    private static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER_NAME, PASSWORD);
     }
 }

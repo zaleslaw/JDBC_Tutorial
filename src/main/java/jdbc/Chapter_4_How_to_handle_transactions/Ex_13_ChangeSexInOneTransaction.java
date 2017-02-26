@@ -1,12 +1,13 @@
-package jdbc.transactions;
+package jdbc.Chapter_4_How_to_handle_transactions;
 
 import java.sql.*;
 import java.util.Random;
 
 /**
- * It's time to change sex has gone
+ * Sometimes we need change our sex together ...
+ * In one transaction only
  */
-public class Ex_11_ChangeSex {
+public class Ex_13_ChangeSexInOneTransaction {
 
     public static final String URL = "jdbc:mysql://localhost:3306/";
     public static final String DB_NAME = "shop";
@@ -30,12 +31,13 @@ public class Ex_11_ChangeSex {
             }
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
+            connection.setAutoCommit(false); //<---------- START TRANSACTION
             updateSt.setString(1, "female");
             updateSt.setInt(2, 1);
             updateSt.executeUpdate();
 
-            if (new Random().nextBoolean()) { // Sometimes shit happens, if you need it everytime use if(true)
-                throw new RuntimeException();
+            if (new Random().nextBoolean()) { /* Sometimes shit happens */
+                throw new SQLException();
             }
 
             updateSt.setString(1, "male");
@@ -52,9 +54,15 @@ public class Ex_11_ChangeSex {
                 System.out.println(rs.getRow() + ". " + rs.getString("firstname")
                         + "\t" + rs.getString("lastname"));
             }
+            connection.commit(); //<------------ END TRANSACTION
 
         } catch (SQLException e) {
             e.printStackTrace();
+            /* Trying to rollback transaction */
+            //connection.rollback()
+
+            /* According to the language spec,
+             the connection will be closed before the catch clause is executed */
         }
     }
 

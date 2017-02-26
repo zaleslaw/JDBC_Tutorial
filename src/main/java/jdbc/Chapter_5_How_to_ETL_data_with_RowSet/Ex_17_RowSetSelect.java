@@ -1,4 +1,4 @@
-package jdbc.rowset;
+package jdbc.Chapter_5_How_to_ETL_data_with_RowSet;
 
 import javax.sql.rowset.JdbcRowSet;
 import javax.sql.rowset.RowSetProvider;

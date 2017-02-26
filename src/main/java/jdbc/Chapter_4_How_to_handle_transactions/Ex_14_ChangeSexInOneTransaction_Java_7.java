@@ -1,4 +1,4 @@
-package jdbc.transactions;
+package jdbc.Chapter_4_How_to_handle_transactions;
 
 import java.sql.*;
 

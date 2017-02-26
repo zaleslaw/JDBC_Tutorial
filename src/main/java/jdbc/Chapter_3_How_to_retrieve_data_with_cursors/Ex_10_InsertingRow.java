@@ -1,4 +1,4 @@
-package jdbc.cursors;
+package jdbc.Chapter_3_How_to_retrieve_data_with_cursors;
 
 import java.sql.*;
 

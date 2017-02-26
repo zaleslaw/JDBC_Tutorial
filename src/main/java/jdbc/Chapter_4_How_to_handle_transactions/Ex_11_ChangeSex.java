@@ -1,13 +1,12 @@
-package jdbc.transactions;
+package jdbc.Chapter_4_How_to_handle_transactions;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.Random;
 
 /**
- * Batch technique is very useful then you need deliver all statements together through the network
- * Don't forget to enable batch support for your Database
+ * It's time to change sex has gone
  */
-public class Ex_12_ChangeSexInOneBatch {
+public class Ex_11_ChangeSex {
 
     public static final String URL = "jdbc:mysql://localhost:3306/";
     public static final String DB_NAME = "shop";
@@ -33,20 +32,15 @@ public class Ex_12_ChangeSexInOneBatch {
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
             updateSt.setString(1, "female");
             updateSt.setInt(2, 1);
-            updateSt.addBatch();
+            updateSt.executeUpdate();
 
+            if (new Random().nextBoolean()) { // Sometimes shit happens, if you need it everytime use if(true)
+                throw new RuntimeException();
+            }
 
             updateSt.setString(1, "male");
             updateSt.setInt(2, 3);
-            updateSt.addBatch();
-
-
-            updateSt.setString(1, "female");
-            updateSt.setInt(2, 2);
-            updateSt.addBatch();
-
-            final int[] ints = updateSt.executeBatch();
-            System.out.println("Batch results: " + Arrays.toString(ints));
+            updateSt.executeUpdate();
 
             System.out.println("Sex was exchanged");
 
