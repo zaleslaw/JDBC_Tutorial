@@ -6,9 +6,10 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 
 /**
- * It's time to go to Java 7. Remove ugly catch section and go ahead!
+ * Task: Connection should be achievable in finally
+ * Solution: Global reference:)
  */
-public class Ex_2_SelectCustomers_with_Java_7 {
+public class Ex_3_Problem_Connection_in_finally {
 
     public static final String URL = "jdbc:mysql://localhost:3306/guber";
     public static final String USER_NAME = "root";
@@ -24,8 +25,11 @@ public class Ex_2_SelectCustomers_with_Java_7 {
                 log.info(rs.getRow() + " " + rs.getString(2) + " " + rs.getString("lastname") + " " + rs.getDate("birthdate").toLocalDate().getYear());
             }
 
+
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            //System.out.println(connection.getCatalog()); //connection is not available here
         }
 
     }

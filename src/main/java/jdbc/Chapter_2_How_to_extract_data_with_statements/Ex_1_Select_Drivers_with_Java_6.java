@@ -12,7 +12,7 @@ import java.sql.*;
  *     <li>Secondly, add null check and call of .close() method for ResultSet, Statement, Connection</li>
  * </ul>
  */
-public class Ex_1_SelectCustomers_with_Java_6 {
+public class Ex_1_Select_Drivers_with_Java_6 {
 
     public static final String URL = "jdbc:mysql://localhost:3306/guber";
     public static final String USER_NAME = "root";
