@@ -1,23 +1,23 @@
 package jdbc.Chapter_4_How_to_handle_transactions;
 
-import java.sql.*;
-import java.util.Random;
+import jdbc.Chapter_3_How_to_retrieve_data_with_cursors.Connectable;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- * Sometimes we need change our sex together ...
- * In one transaction only
+ * If use try-with-resources we will catch a problem in 'catch' section
  */
-public class Ex_13_ChangeSexInOneTransaction {
+public class Ex_4_Problem_ChangeSexInOneTransaction_with_Java_7 extends Connectable {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/";
-    public static final String DB_NAME = "shop";
-    public static final String USER_NAME = "root";
-    public static final String PASSWORD = "pass";
+    public static final String FEMALE = "F";
+    public static final String MALE = "M";
 
+    public static void main(String[] args) {
 
-    public static void main(String[] args) throws SQLException {
-
-        try (Connection connection = getConnection(DB_NAME);
+        try (Connection connection = getConnection();
              PreparedStatement st = connection.prepareStatement("SELECT * FROM customers WHERE sex = ?");
              PreparedStatement updateSt = connection.prepareStatement("UPDATE customers SET sex = ? WHERE id = ?")) {
 
@@ -32,31 +32,32 @@ public class Ex_13_ChangeSexInOneTransaction {
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
             connection.setAutoCommit(false); //<---------- START TRANSACTION
-            updateSt.setString(1, "female");
-            updateSt.setInt(2, 1);
-            updateSt.executeUpdate();
-
-            if (new Random().nextBoolean()) { /* Sometimes shit happens */
-                throw new SQLException();
-            }
-
-            updateSt.setString(1, "male");
+            updateSt.setString(1, "F");
             updateSt.setInt(2, 3);
             updateSt.executeUpdate();
 
-            System.out.println("Sex was exchanged");
+
+            // This code emulates broken transaction
+            if (true) {
+                throw new SQLException("Database was broken");
+            }
+
+            updateSt.setString(1, MALE);
+            updateSt.setInt(2, 2);
+            updateSt.executeUpdate();
+
+            log.info("Sex was exchanged");
 
             // SELECT ALL FEMALES
-            st.setString(1, "female");
+            st.setString(1, FEMALE);
             rs = st.executeQuery();
-            System.out.println("Women List");
+            log.info("Women List");
             while (rs.next()) {
-                System.out.println(rs.getRow() + ". " + rs.getString("firstname")
-                        + "\t" + rs.getString("lastname"));
+                log.info(rs.getRow() + ". " + rs.getString("firstname") + "\t" + rs.getString("lastname"));
             }
             connection.commit(); //<------------ END TRANSACTION
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             /* Trying to rollback transaction */
             //connection.rollback()
@@ -64,9 +65,5 @@ public class Ex_13_ChangeSexInOneTransaction {
             /* According to the language spec,
              the connection will be closed before the catch clause is executed */
         }
-    }
-
-    private static Connection getConnection(String databaseName) throws SQLException {
-        return DriverManager.getConnection(URL + databaseName, USER_NAME, PASSWORD);
     }
 }
