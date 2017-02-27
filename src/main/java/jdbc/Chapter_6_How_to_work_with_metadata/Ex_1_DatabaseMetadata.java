@@ -1,17 +1,16 @@
 package jdbc.Chapter_6_How_to_work_with_metadata;
 
-import java.sql.*;
+import jdbc.Chapter_3_How_to_retrieve_data_with_cursors.Connectable;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
- * WIth this example you can ship over tables and columns of selected database
+ * With this example you can ship over tables and columns of selected database
  */
-public class Ex_16_DatabaseMetadata {
-
-    public static final String URL = "jdbc:mysql://localhost:3306/";
-    public static final String DB_NAME = "grub";
-    public static final String USER_NAME = "root";
-    public static final String PASSWORD = "pass";
-
+public class Ex_1_DatabaseMetadata extends Connectable {
 
     public static void main(String[] args) {
 
@@ -19,9 +18,9 @@ public class Ex_16_DatabaseMetadata {
         ResultSet tables = null;
 
         try {
-            connection = getConnection(DB_NAME);
+            connection = getConnection();
             DatabaseMetaData dbMetaData = connection.getMetaData();
-            System.out.println("DB " + dbMetaData.getDatabaseProductName()
+            log.info("DB " + dbMetaData.getDatabaseProductName()
                     + " with driver " + dbMetaData.getDriverName()
                     + " and max columns in GROUP BY " + dbMetaData.getMaxColumnsInGroupBy());
 
@@ -30,7 +29,7 @@ public class Ex_16_DatabaseMetadata {
 
             while (tables.next()) {
                 String tableName = tables.getString(3);
-                System.out.println("Meta info about table " + tableName);
+                log.info("Meta info about table " + tableName);
 
                 ResultSet columns = dbMetaData.getColumns(null, null, tableName, null);
                 while (columns.next()) {
@@ -38,7 +37,7 @@ public class Ex_16_DatabaseMetadata {
                     String type = columns.getString("TYPE_NAME");
                     int size = columns.getInt("COLUMN_SIZE");
 
-                    System.out.println("Column name: [" + name + "]; type: [" + type
+                    log.info("Column name: [" + name + "]; type: [" + type
                             + "]; size: [" + size + "]");
                 }
             }
@@ -64,7 +63,4 @@ public class Ex_16_DatabaseMetadata {
         }
     }
 
-    private static Connection getConnection(String databaseName) throws SQLException {
-        return DriverManager.getConnection(URL + databaseName, USER_NAME, PASSWORD);
-    }
 }
