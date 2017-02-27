@@ -3,6 +3,7 @@ package spring_jdbc;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,21 +17,23 @@ public class SpringApp {
     public static void main(String[] args) {
         AbstractApplicationContext context = (AbstractApplicationContext) new ClassPathXmlApplicationContext("beans.xml");
 
-        ShopDao dao = (ShopDao) context.getBean("shopDao");
+        TaxiDao dao = (TaxiDao) context.getBean("taxiDao");
 
 
         Map<String, Object> map = new HashMap<>();
-        map.put("name", "SpringToy");
-        map.put("weight", 10);
-        map.put("category", "SuperToy");
+        map.put("manufacture_year", new Date(1000));
+        map.put("car_make", "super_moskvich");
+        map.put("licence_plate", "ZZZ");
+        map.put("capacity", "1");
+        map.put("has_baby_chair", true);
 
 
         // STEP 1: INSERT operator
-        dao.insertProduct(map);
+        dao.insertCab(map);
 
 
         // STEP 2: SELECT operator
-        System.out.println("Amount of male customers " + dao.countOfCustomersBySex("male"));
+        System.out.println("Amount of male customers " + dao.countOfCabsWithCapacityMoreThan(10));
 
 
         // STEP 3: DDL operator
@@ -38,7 +41,7 @@ public class SpringApp {
 
 
         // STEP 4: Map Product object
-        dao.getProducts().forEach(System.out::println);
+        dao.getCabs().forEach(System.out::println);
 
 
     }
