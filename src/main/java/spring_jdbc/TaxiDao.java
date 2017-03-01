@@ -48,6 +48,13 @@ public class TaxiDao {
 
     }
 
+    public void dropUserTable() {
+
+        String DDLOperator = "DROP TABLE users";
+        this.jdbcTemplate.execute(DDLOperator);
+
+    }
+
     public List<Cab> getCabs() {
 
         return jdbcTemplate.query(

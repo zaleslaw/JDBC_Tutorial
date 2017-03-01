@@ -15,7 +15,7 @@ public class SpringApp {
     public static final String JAVA_LANG = "Java";
 
     public static void main(String[] args) {
-        AbstractApplicationContext context = (AbstractApplicationContext) new ClassPathXmlApplicationContext("beans.xml");
+        AbstractApplicationContext context = (AbstractApplicationContext) new ClassPathXmlApplicationContext("beansForSpringJDBC.xml");
 
         TaxiDao dao = (TaxiDao) context.getBean("taxiDao");
 
