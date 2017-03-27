@@ -30,7 +30,7 @@ public class Ex_6_Solution_ChangeSexInOneTransactionWithSavepoints extends Conne
 
                 // UPDATE SEX FOR ONE MAN AND ONE WOMAN
                 connection.setAutoCommit(false); //<---------- START TRANSACTION
-                updateSt.setString(1, "F");
+                updateSt.setString(1, FEMALE);
                 updateSt.setInt(2, 3);
                 updateSt.executeUpdate();
 

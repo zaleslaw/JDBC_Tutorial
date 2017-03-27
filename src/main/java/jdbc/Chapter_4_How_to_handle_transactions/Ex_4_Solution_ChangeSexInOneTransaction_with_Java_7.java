@@ -31,7 +31,7 @@ public class Ex_4_Solution_ChangeSexInOneTransaction_with_Java_7 extends Connect
 
                 // UPDATE SEX FOR ONE MAN AND ONE WOMAN
                 connection.setAutoCommit(false); //<---------- START TRANSACTION
-                updateSt.setString(1, "F");
+                updateSt.setString(1, FEMALE);
                 updateSt.setInt(2, 3);
                 updateSt.executeUpdate();
 

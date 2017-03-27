@@ -30,7 +30,7 @@ public class Ex_3_ChangeSexInOneTransaction_with_Java_6 extends Connectable {
             updateSt = connection.prepareStatement("UPDATE customers SET sex = ? WHERE id = ?");
 
             // SELECT ALL MALES
-            st.setString(1, "male");
+            st.setString(1, MALE);
             ResultSet rs = st.executeQuery();
             System.out.println("Men List");
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class Ex_3_ChangeSexInOneTransaction_with_Java_6 extends Connectable {
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
             connection.setAutoCommit(false); //<---------- START TRANSACTION
-            updateSt.setString(1, "F");
+            updateSt.setString(1, FEMALE);
             updateSt.setInt(2, 3);
             updateSt.executeUpdate();
 

@@ -23,7 +23,7 @@ public class Ex_1_ChangeSex extends Connectable {
              PreparedStatement updateSt = connection.prepareStatement("UPDATE driver SET sex = ? WHERE id = ?")) {
 
             // SELECT ALL MALES
-            st.setString(1, "M");
+            st.setString(1, MALE);
             ResultSet rs = st.executeQuery();
             log.info("Men List");
             while (rs.next()) {
@@ -31,7 +31,7 @@ public class Ex_1_ChangeSex extends Connectable {
             }
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
-            updateSt.setString(1, "F");
+            updateSt.setString(1, FEMALE);
             updateSt.setInt(2, 3);
             updateSt.executeUpdate();
 

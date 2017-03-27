@@ -19,7 +19,7 @@ public class Ex_5_Problem_Incorrect_table_name extends Connectable {
 
         try (Connection connection = getConnection()) {
             try (PreparedStatement st = connection.prepareStatement("SELECT * FROM driverss WHERE sex = ?"); // Incorrect table
-                 //Solution "SELECT * FROM customers WHERE sex = ?"
+                 //Solution "SELECT * FROM drivers WHERE sex = ?"
                  PreparedStatement updateSt = connection.prepareStatement("UPDATE driver SET sex = ? WHERE id = ?")) {
 
                 // SELECT ALL MALES
@@ -32,7 +32,7 @@ public class Ex_5_Problem_Incorrect_table_name extends Connectable {
 
                 // UPDATE SEX FOR ONE MAN AND ONE WOMAN
                 connection.setAutoCommit(false); //<---------- START TRANSACTION
-                updateSt.setString(1, "F");
+                updateSt.setString(1, FEMALE);
                 updateSt.setInt(2, 3);
                 updateSt.executeUpdate();
 

@@ -22,7 +22,7 @@ public class Ex_4_Problem_ChangeSexInOneTransaction_with_Java_7 extends Connecta
              PreparedStatement updateSt = connection.prepareStatement("UPDATE customers SET sex = ? WHERE id = ?")) {
 
             // SELECT ALL MALES
-            st.setString(1, "male");
+            st.setString(1, MALE);
             ResultSet rs = st.executeQuery();
             System.out.println("Men List");
             while (rs.next()) {
@@ -32,7 +32,7 @@ public class Ex_4_Problem_ChangeSexInOneTransaction_with_Java_7 extends Connecta
 
             // UPDATE SEX FOR ONE MAN AND ONE WOMAN
             connection.setAutoCommit(false); //<---------- START TRANSACTION
-            updateSt.setString(1, "F");
+            updateSt.setString(1, FEMALE);
             updateSt.setInt(2, 3);
             updateSt.executeUpdate();
 

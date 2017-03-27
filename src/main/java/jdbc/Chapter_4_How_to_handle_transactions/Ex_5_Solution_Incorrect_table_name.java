@@ -23,7 +23,7 @@ public class Ex_5_Solution_Incorrect_table_name extends Connectable {
                  PreparedStatement updateSt = connection.prepareStatement("UPDATE driver SET sex = ? WHERE id = ?")) {
 
                 // SELECT ALL MALES
-                st.setString(1, "male");
+                st.setString(1, MALE);
                 ResultSet rs = st.executeQuery();
                 log.info("Men List");
                 while (rs.next()) {
@@ -31,8 +31,8 @@ public class Ex_5_Solution_Incorrect_table_name extends Connectable {
                 }
 
                 // UPDATE SEX FOR ONE MAN AND ONE WOMAN
-                connection.setAutoCommit(false); //<---------- START TRANSACTION
-                updateSt.setString(1, "F");
+                //connection.setAutoCommit(false); //<---------- START TRANSACTION
+                updateSt.setString(1, FEMALE);
                 updateSt.setInt(2, 3);
                 updateSt.executeUpdate();
 
