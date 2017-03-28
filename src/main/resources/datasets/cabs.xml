@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <cab id="1" manufacture_year="1968-01-01" car_make="Audi" licence_plate="A007AA" capacity="4" has_baby_chair="true"/>
+  <cab id="2" manufacture_year="2010-01-01" car_make="Cadillac" licence_plate="C000CC" capacity="2" has_baby_chair="false"/>
+  <cab id="3" manufacture_year="1999-01-01" car_make="Chevrolet" licence_plate="C000CC" capacity="10" has_baby_chair="true"/>
+  <cab id="4" manufacture_year="1908-01-01" car_make="Ford" licence_plate="F888CK" capacity="3" has_baby_chair="false"/>
+  <cab id="5" manufacture_year="1996-01-01" car_make="BMW" licence_plate="BMWBMW" capacity="1" has_baby_chair="true"/>
+  <cab id="6" manufacture_year="2018-01-01" car_make="Nissan" licence_plate="O000OO" capacity="24" has_baby_chair="true"/>
+  <cab id="7" manufacture_year="1968-01-01" car_make="Batmobile" licence_plate="B777AT" capacity="2" has_baby_chair="false"/>
+</dataset>
