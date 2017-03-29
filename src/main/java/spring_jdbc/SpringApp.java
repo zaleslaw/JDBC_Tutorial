@@ -1,5 +1,7 @@
 package spring_jdbc;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,10 +14,10 @@ import java.util.Map;
  */
 public class SpringApp {
 
-    public static final String JAVA_LANG = "Java";
+    public static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) {
-        AbstractApplicationContext context = (AbstractApplicationContext) new ClassPathXmlApplicationContext("beansForSpringJDBC.xml");
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("beansForSpringJDBC.xml");
 
         TaxiDao dao = (TaxiDao) context.getBean("taxiDao");
 
@@ -29,19 +31,19 @@ public class SpringApp {
 
 
         // STEP 1: INSERT operator
-        dao.insertCab(map);
+        //dao.insertCab(map);
 
 
         // STEP 2: SELECT operator
-        System.out.println("Amount of male customers " + dao.countOfCabsWithCapacityMoreThan(10));
+        log.info("Amount of cabs " + dao.countOfCabsWithCapacityMoreThan(10));
 
 
         // STEP 3: DDL operator
-        dao.createUserTable();
+        //dao.createUserTable();
 
 
         // STEP 4: Map Product object
-        dao.getCabs().forEach(System.out::println);
+        dao.getCabs().forEach(log::info);
 
 
     }

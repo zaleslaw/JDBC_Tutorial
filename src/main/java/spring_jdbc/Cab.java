@@ -2,9 +2,6 @@ package spring_jdbc;
 
 import java.util.Date;
 
-/**
- * Created by Alexey_Zinovyev on 31-Oct-16.
- */
 public class Cab {
 
     private Date manufactureYear;
