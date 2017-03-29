@@ -1,4 +1,4 @@
-package connectionPooling;
+package connectionPooling.demo;
 
 import jdbc.Chapter_3_How_to_retrieve_data_with_cursors.Connectable;
 
@@ -21,8 +21,7 @@ public class SoManyRequestsToDatabase extends Connectable {
         Runnable lambda = () -> {
             try {
                 Connection conn = getConnection();
-                counter.getAndIncrement();
-                System.out.println(conn.getNetworkTimeout());
+                System.out.println(counter.getAndIncrement());
             } catch (SQLException e) {
                 e.printStackTrace();
                 System.out.println("Counter is " + counter.get());

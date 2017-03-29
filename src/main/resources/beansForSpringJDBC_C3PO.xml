@@ -15,8 +15,7 @@
         <property name="JdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-        <property name="MinPoolSize" value="10" />
-
+        <property name="MinPoolSize" value="2"/>
     </bean>
 
     <context:property-placeholder location="jdbc.properties"/>

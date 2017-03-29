@@ -17,6 +17,7 @@
         <property name="password" value="${jdbc.password}"/>
         <property name="initialSize" value="5" />
         <property name="MaxIdle" value="15" />
+        <property name="maxActive" value="20"/>
     </bean>
 
     <context:property-placeholder location="jdbc.properties"/>

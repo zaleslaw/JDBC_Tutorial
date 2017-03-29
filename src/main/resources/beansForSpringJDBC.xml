@@ -17,9 +17,9 @@
         <property name="password" value="${jdbc.password}"/>
 
 
-        <!--        <property name="removeAbandoned" value="true"/>
-                <property name="initialSize" value="10" />
-                <property name="maxActive" value="5" />-->
+        <property name="removeAbandoned" value="false"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxActive" value="6"/>
     </bean>
 
     <context:property-placeholder location="jdbc.properties"/>
