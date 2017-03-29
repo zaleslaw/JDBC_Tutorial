@@ -9,9 +9,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by Alexey_Zinovyev on 17-Oct-16.
- */
+
 public class SpringApp {
 
     public static final Logger log = LogManager.getRootLogger();
