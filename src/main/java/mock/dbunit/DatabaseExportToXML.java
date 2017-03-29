@@ -9,7 +9,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import java.io.FileOutputStream;
 
 /**
- * Created by Alexey_Zinovyev on 01.03.2017.
+ * Creates simple dataset to test something
  */
 public class DatabaseExportToXML extends Connectable{
         public static void main(String[] args) throws Exception
@@ -21,8 +21,6 @@ public class DatabaseExportToXML extends Connectable{
             // partial database export
             QueryDataSet partialDataSet = new QueryDataSet(connection);
             partialDataSet.addTable("cab", "SELECT * FROM cab");
-            FlatXmlDataSet.write(partialDataSet, new FileOutputStream("cabs.xml"));
-
-
+            FlatXmlDataSet.write(partialDataSet, new FileOutputStream("cabs1.xml"));
         }
 }

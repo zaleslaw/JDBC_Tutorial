@@ -222,6 +222,71 @@ jdbc.audit Ч Ћогирует все вызовы JDBC API, кроме работы с ResultSet
 jdbc.resultset Ч ¬се вызовы к ResultSet протоколируютс€
 jdbc.connection Ч Ћогируютс€ открытие и закрытие соединени€, полезно использовать дл€ поиска утечек соединений
 
+6.**DBUnit**
+
+Old but working approach to test database.
+
+Next code help us to generate test datasets
+
+    public class DatabaseExportToXML extends Connectable{
+        public static void main(String[] args) throws Exception
+        {
+            // database connection
+
+            IDatabaseConnection connection = new DatabaseConnection(getConnection());
+
+            // partial database export
+            QueryDataSet partialDataSet = new QueryDataSet(connection);
+            partialDataSet.addTable("cab", "SELECT * FROM cab");
+            FlatXmlDataSet.write(partialDataSet, new FileOutputStream("cabs1.xml"));
+        }
+    }
+    
+After that write class extending _DBTestCase_
+
+public class FirstTest extends DBTestCase {
+
+
+
+    public FirstTest(){
+        super();
+        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "com.mysql.jdbc.Driver" );
+        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:mysql://localhost:3306/guber?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8" );
+        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "root" );
+        System.setProperty( PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "pass" );
+    }
+
+    protected DatabaseOperation getSetUpOperation() throws Exception {
+        return DatabaseOperation.NONE;
+    }
+
+    protected DatabaseOperation getTearDownOperation() throws Exception {
+        return DatabaseOperation.NONE;
+    }
+
+    @Override
+    protected IDataSet getDataSet() throws Exception {
+        return null;
+    }
+
+    protected void setUpDatabaseConfig(DatabaseConfig config) {
+        config.setProperty(DatabaseConfig.PROPERTY_BATCH_SIZE, new Integer(50));
+        config.setProperty(DatabaseConfig.FEATURE_BATCHED_STATEMENTS, true);
+    }
+
+copy code above and write your own tests
+
+    public void testCheckCabs() throws Exception {
+        IDataSet databaseDataSet = getConnection().createDataSet();
+        ITable factTable = databaseDataSet.getTable("cab");
+
+
+        IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(new File("src/main/resources/datasets/cabs1.xml"));
+        ITable testTable = expectedDataSet.getTable("cab");
+
+        Assertion.assertEquals(testTable, factTable);
+
+    }
 
       
 
